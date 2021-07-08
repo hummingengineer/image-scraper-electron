@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, fade } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles, alpha } from '@material-ui/core/styles';
 
 import AppBarMaterial from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
       WebkitAppRegion: 'no-drag',
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
       },
       marginRight: theme.spacing(2),
       marginLeft: 0,
