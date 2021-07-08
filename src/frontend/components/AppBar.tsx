@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       WebkitAppRegion: 'drag',
     },
     title: {
+      WebkitUserSelect: 'none',
       display: 'block',
       marginRight: theme.spacing(2),
     },
@@ -58,44 +59,42 @@ export default function AppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBarMaterial position="static">
-        <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Image Scraper
-          </Typography>
-          <div className={classes.search}>
-            <InputBase
-              placeholder="Search URL"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search url' }}
-              fullWidth
-              endAdornment={
-                <>
-                  <Divider className={classes.divider} orientation="vertical" />
-                  <IconButton color="inherit">
-                    <SearchIcon />
-                  </IconButton>
-                </>
-              }
-            />
-          </div>
-          <div className={classes.sectionDesktop}>
-            <IconButton color="inherit" edge="end">
-              <MinimizeIcon />
-            </IconButton>
-            <IconButton color="inherit" edge="end">
-              <FullscreenIcon />
-            </IconButton>
-            <IconButton color="inherit" edge="end">
-              <CloseIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBarMaterial>
-    </div>
+    <AppBarMaterial position="fixed" className={classes.root}>
+      <Toolbar>
+        <Typography className={classes.title} variant="h6" noWrap>
+          Image Scraper
+        </Typography>
+        <div className={classes.search}>
+          <InputBase
+            placeholder="Search URL"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search url' }}
+            fullWidth
+            endAdornment={
+              <>
+                <Divider className={classes.divider} orientation="vertical" />
+                <IconButton color="inherit">
+                  <SearchIcon />
+                </IconButton>
+              </>
+            }
+          />
+        </div>
+        <div className={classes.sectionDesktop}>
+          <IconButton color="inherit" edge="end">
+            <MinimizeIcon />
+          </IconButton>
+          <IconButton color="inherit" edge="end">
+            <FullscreenIcon />
+          </IconButton>
+          <IconButton color="inherit" edge="end">
+            <CloseIcon />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBarMaterial>
   );
 }
