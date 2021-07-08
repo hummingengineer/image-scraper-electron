@@ -76,7 +76,7 @@ export default function AppBar() {
             endAdornment={
               <>
                 <Divider className={classes.divider} orientation="vertical" />
-                <IconButton color="inherit">
+                <IconButton color="inherit" onClick={() => window.api.send('search')}>
                   <SearchIcon />
                 </IconButton>
               </>
