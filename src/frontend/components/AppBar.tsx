@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, Theme, createStyles, alpha } from '@material-ui/core/styles';
 
 import AppBarMaterial from '@material-ui/core/AppBar';
@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MinimizeIcon from '@material-ui/icons/Minimize';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,6 +59,22 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AppBar() {
   const classes = useStyles();
 
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  useEffect(() => {
+    window.api.receive('app-maximized', () => {
+      setIsFullScreen(true);
+    });
+    window.api.receive('app-unmaximized', () => {
+      setIsFullScreen(false);
+    });
+
+    return function cleanup() {
+      window.api.remove('app-maximized');
+      window.api.remove('app-unmaximized');
+    };
+  }, []);
+
   return (
     <AppBarMaterial position="fixed" className={classes.root}>
       <Toolbar>
@@ -84,13 +101,17 @@ export default function AppBar() {
           />
         </div>
         <div className={classes.sectionDesktop}>
-          <IconButton color="inherit" edge="end">
+          <IconButton color="inherit" edge="end" onClick={() => window.api.send('minimize-app')}>
             <MinimizeIcon />
           </IconButton>
-          <IconButton color="inherit" edge="end">
-            <FullscreenIcon />
+          <IconButton
+            color="inherit"
+            edge="end"
+            onClick={() => window.api.send('maximize-unmaximize-app')}
+          >
+            {isFullScreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
           </IconButton>
-          <IconButton color="inherit" edge="end">
+          <IconButton color="inherit" edge="end" onClick={() => window.api.send('close-app')}>
             <CloseIcon />
           </IconButton>
         </div>
