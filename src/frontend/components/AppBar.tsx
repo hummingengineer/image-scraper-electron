@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles, Theme, createStyles, alpha } from '@material-ui/core/styles';
 
 import AppBarMaterial from '@material-ui/core/AppBar';
@@ -61,6 +61,8 @@ export default function AppBar() {
 
   const [isFullScreen, setIsFullScreen] = useState(false);
 
+  const urlRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     window.api.receive('app-maximized', () => {
       setIsFullScreen(true);
@@ -93,11 +95,15 @@ export default function AppBar() {
             endAdornment={
               <>
                 <Divider className={classes.divider} orientation="vertical" />
-                <IconButton color="inherit" onClick={() => window.api.send('search')}>
+                <IconButton
+                  color="inherit"
+                  onClick={() => window.api.send('search', urlRef.current.value)}
+                >
                   <SearchIcon />
                 </IconButton>
               </>
             }
+            inputRef={urlRef}
           />
         </div>
         <div className={classes.sectionDesktop}>

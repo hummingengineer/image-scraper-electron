@@ -82,6 +82,11 @@ const createWindow = (): void => {
 
   // Close app
   ipcMain.on('close-app', () => mainWindow.close());
+
+  // Search url and then get all image urls on the page
+  ipcMain.on('search', (event: Electron.IpcMainEvent, url) => {
+    //
+  });
 };
 
 // This method will be called when Electron has finished
